@@ -2,6 +2,7 @@
 
 ### Clone this repo
 `git clone https://github.com/minhlq8/API.git`
+
 `cd API`
 
 ### Install required packages (make sure python3 and python3-pip installed):
