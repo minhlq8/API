@@ -10,6 +10,7 @@
 
 ### Create folder save API and data
 `mkdir /var/www/html/api`
+
 `mkdir /var/www/html/log`
 
 ### Copy all to /var/www/html/api
