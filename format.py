@@ -9,6 +9,9 @@ import os
 projectKey = sys.argv[1]
 
 convertDate = dict((month, index) for index, month in enumerate(calendar.month_abbr) if month)
+if not os.path.exists("/var/www/html/log/DVWAScan/instances"):
+	os.mkdir("/var/www/html/log/DVWAScan/instances")
+
 file = open("/var/www/html/log/output","r")
 input_dict = json.loads(file.read())
 file.close()
