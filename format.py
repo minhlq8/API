@@ -9,8 +9,8 @@ import os
 projectKey = sys.argv[1]
 
 convertDate = dict((month, index) for index, month in enumerate(calendar.month_abbr) if month)
-if not os.path.exists("/var/www/html/log/DVWAScan/instances"):
-	os.mkdir("/var/www/html/log/DVWAScan/instances")
+if not os.path.exists("/var/www/html/log/"+projectKey+"/instances"):
+	os.mkdir("/var/www/html/log/"+projectKey+"/instances")
 
 file = open("/var/www/html/log/output","r")
 input_dict = json.loads(file.read())
@@ -27,14 +27,14 @@ for i in input_dict:
 	timeStamp=str(int(time.mktime(date.timetuple())))
 	count=0
 	create=False
-	if not os.path.exists("/var/www/html/log/DVWAScan/instances/"+timeStamp):
-		os.mkdir("/var/www/html/log/DVWAScan/instances/"+timeStamp)
+	if not os.path.exists("/var/www/html/log/"+projectKey+"/instances/"+timeStamp):
+		os.mkdir("/var/www/html/log/"+projectKey+"/instances/"+timeStamp)
 		create=True
 	for j in input_dict[i]['site'][0]['alerts']:
 		count+=1
 		if create:
 			instances = json.dumps(j["instances"],indent=1)
-			file = open("/var/www/html/log/DVWAScan/instances/"+timeStamp+"/"+str(count),"w")
+			file = open("/var/www/html/log/"+projectKey+"/instances/"+timeStamp+"/"+str(count),"w")
 			file.write(instances)
 			file.close()
 		alert.append({**dict(alert = str(j['alert'])),**dict(riskdesc = str(j['riskdesc']).split()[0]),**dict(desc = str(j['desc']).replace("<p>","").replace("</p>","")),**dict(count = str(j['count'])),**dict(solution = str(j['solution']).replace("<p>","").replace("</p>","")),**dict(cweid = str(j['cweid'])),**dict(instances = "http://54.199.43.255/api/getInstances.php?projectKey="+projectKey+"&file="+timeStamp+"&id="+str(count))})
