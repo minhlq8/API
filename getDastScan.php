@@ -23,7 +23,7 @@ if(isset($_GET['projectKey']) and isset($_GET['n'])){
 			$myfile = fopen("/var/www/html/log/output", "w");
 			fwrite($myfile,$content);
 			fclose($myfile);
-			$output = shell_exec("python3 /var/www/html/api/format.py $_GET['projectKey']");
+			$output = shell_exec("python3 /var/www/html/api/format.py " . $_GET['projectKey']);
 			echo file_get_contents("/var/www/html/log/output");
 			//echo $output;
 		}
