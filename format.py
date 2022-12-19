@@ -37,7 +37,7 @@ for i in input_dict:
 			file = open("/var/www/html/log/"+projectKey+"/instances/"+timeStamp+"/"+str(count),"w")
 			file.write(instances)
 			file.close()
-		alert.append({**dict(alert = str(j['alert'])),**dict(riskdesc = str(j['riskdesc']).split()[0]),**dict(desc = str(j['desc']).replace("<p>","").replace("</p>","")),**dict(count = str(j['count'])),**dict(solution = str(j['solution']).replace("<p>","").replace("</p>","")),**dict(cweid = str(j['cweid'])),**dict(instances = "http://54.199.43.255/api/getInstances.php?projectKey="+projectKey+"&file="+timeStamp+"&id="+str(count))})
+		alert.append({**dict(alert = str(j['alert'])),**dict(riskdesc = str(j['riskdesc']).split()[0].replace("High","3").replace("Medium","2").replace("Low","1").replace("Informational","0")),**dict(desc = str(j['desc']).replace("<p>","").replace("</p>","")),**dict(count = str(j['count'])),**dict(solution = str(j['solution']).replace("<p>","").replace("</p>","")),**dict(cweid = str(j['cweid'])),**dict(instances = "http://54.199.43.255/api/getInstances.php?projectKey="+projectKey+"&file="+timeStamp+"&id="+str(count))})
 	create=False
 	measures.append({**{"projectKey":projectKey},**{'scanDate':str(new_time),**{"alerts":alert}}})
 
